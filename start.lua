@@ -1,5 +1,5 @@
 screenLabel = "Ore" --export : label for top of screen
-fontsize = 10
+fontsize = 10       --export : higher font, less lines
 threshold = 10000   --export : line turns red when less than this
 
 indexes = {}
@@ -25,9 +25,20 @@ typeWeights = {
   calcium = 1.55,
   chromium = 1.0,
 -- T3
+  garnierite = 2.60,
   petalite = 2.41,
   pyrite = 5.01,
-  acanthite = 7.20
+  acanthite = 7.20,
+
+  nickel = 8.91,
+  lithium = 0.53,
+  sulfur = 1.82,
+  silver = 10.49
+-- T4
+  cryolite = 2.95
+
+  fluorine = 1.70
+
 }
 typeWeights["warp cell"] = 100
 typeWeights["al fe alloy"] = 7.5
@@ -73,7 +84,7 @@ function startup()
         if type(value) == "table" and type(value.export) == "table" then
             if value.getElementClass then
                 cls = value.getElementClass()
-                if cls == "CoreUnit" or cls == "CoreUnitSpace" then
+                if string.find(cls, "CoreUnit") then
                     core = value
                 end
                 if cls == "ScreenUnit" then
@@ -137,7 +148,7 @@ function getReportLine(labelStr, container, weight, mass)
     amtInt = math.floor(mass / weight)
     amount = formatComma(amtInt)
     color = ""
-    if (amtInt < 5) then
+    if (amtInt < threshold) then
         color = "background-color: red"
     end
     label = labelStr:gsub("^%l", string.upper)
