@@ -114,7 +114,7 @@ function startup()
                     id = value.getId()
                     name = string.lower(core.getElementNameById(id))
                     weight = findWeight(name)
-                    r = { value=value, name=name, mass=0, weight=weight}
+                    r = { value=value, name=name, mass=-1, weight=weight}
                     links[linkSize] = r
                     linkSize = linkSize + 1
                 end
